@@ -9,10 +9,23 @@ export default class myHeader extends HTMLElement{
    constructor(){
     super();
     this.attachShadow({mode: "open"});
-    Promise.resolve(myHeader.components()).then(html=>{
-        this.shadowRoot.innerHTML = html;
-    })
+    
+   }
+   handleEvent(e){
+    (e.type === "click") ? this.enviarWorker(e) : undefined;
+   }
+
+   enviarWorker(e){
+    console.log(e);
+    e.preventDefault();
    }
  
+   connectedCallback(){
+    Promise.resolve(myHeader.components()).then(html=>{
+        this.shadowRoot.innerHTML = html;
+        this.myButton = this.shadowRoot.querySelector("input");
+        this.myButton.addEventListener("click", this.handleEvent.bind(this));
+    })
+   }
 }
 customElements.define(name, myHeader)

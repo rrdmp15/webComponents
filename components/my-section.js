@@ -8,10 +8,24 @@ export default class mySection extends HTMLElement{
     constructor(){
         super();
         this.attachShadow({mode: "open"});
+        
+    }
+
+    handleEvente(e){
+        (e.type === "click") ? this.enviarWorker(e) : undefined;
+    }
+
+    enviarWorker(e){
+        console.log(e);
+        e.preventDefault;
+    }
+
+    connectedCallback(){
         Promise.resolve(mySection.components()).then(html =>{
             this.shadowRoot.innerHTML = html;
+            this.myButton = this.shadowRoot.querySelector("input");
+            this.myButton.addEventListener("click", this.handleEvente.bind(this));
         })
-        console.log(name);
     }
 }
 customElements.define(name, mySection);
